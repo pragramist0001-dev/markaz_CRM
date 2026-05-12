@@ -3,7 +3,7 @@ import { useAppDispatch, useAppSelector } from '../hooks/useRedux';
 import { setUser } from '../store/slices/authSlice';
 import api from '../services/api';
 import toast from 'react-hot-toast';
-import { useTranslation } from 'react-i18next';
+
 import {
   User, Mail, Phone, Lock, Eye, EyeOff,
   Save, Shield, CheckCircle
@@ -13,7 +13,7 @@ import { Button } from '../components/ui/button';
 import { Input } from '../components/ui/input';
 
 export default function ProfilePage() {
-  const { t } = useTranslation();
+
   const dispatch = useAppDispatch();
   const { user } = useAppSelector((s) => s.auth);
 

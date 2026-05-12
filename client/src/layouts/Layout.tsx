@@ -5,7 +5,7 @@ import {
   LayoutDashboard, Users, BookOpen, GraduationCap,
   CreditCard, CalendarCheck, LogOut,
   ChevronRight, Bell, ShoppingBag,
-  Moon, Sun, Menu, Clock, Award, Star
+  Moon, Sun, Menu, Clock, Star
 } from 'lucide-react';
 import { useAppDispatch, useAppSelector } from '../hooks/useRedux';
 import { logout } from '../store/slices/authSlice';
@@ -15,15 +15,15 @@ import { Button } from '../components/ui/button';
 
 const navItems = [
   { to: '/', icon: LayoutDashboard, label: 'dashboard', roles: ['superadmin', 'manager', 'admin'] },
-  { to: '/students', icon: GraduationCap, label: 'students', roles: ['manager', 'admin', 'teacher', 'administrator'] },
-  { to: '/courses', icon: BookOpen, label: 'courses', roles: ['manager', 'admin', 'teacher'] },
-  { to: '/teachers', icon: Users, label: 'teachers', roles: ['manager', 'admin'] },
-  { to: '/payments', icon: CreditCard, label: 'payments', roles: ['manager', 'admin'] },
-  { to: '/attendance', icon: CalendarCheck, label: 'attendance', roles: ['manager', 'admin', 'teacher'] },
-  { to: '/grades', icon: Star, label: 'grading', roles: ['teacher'] },
-  { to: '/salaries', icon: CreditCard, label: 'salaries', roles: ['manager', 'admin'] },
-  { to: '/expenses', icon: ShoppingBag, label: 'expenses', roles: ['manager', 'admin', 'superadmin'] },
-  { to: '/absentees', icon: Bell, label: 'absentees', roles: ['manager', 'admin', 'administrator'] },
+  { to: '/students', icon: GraduationCap, label: 'students', roles: ['superadmin', 'manager', 'admin', 'teacher', 'administrator'] },
+  { to: '/courses', icon: BookOpen, label: 'courses', roles: ['superadmin', 'manager', 'admin', 'teacher'] },
+  { to: '/teachers', icon: Users, label: 'teachers', roles: ['superadmin', 'manager', 'admin'] },
+  { to: '/payments', icon: CreditCard, label: 'payments', roles: ['superadmin', 'manager', 'admin'] },
+  { to: '/attendance', icon: CalendarCheck, label: 'attendance', roles: ['superadmin', 'manager', 'admin', 'teacher'] },
+  { to: '/grades', icon: Star, label: 'grading', roles: ['superadmin', 'teacher'] },
+  { to: '/salaries', icon: CreditCard, label: 'salaries', roles: ['superadmin', 'manager', 'admin'] },
+  { to: '/expenses', icon: ShoppingBag, label: 'expenses', roles: ['superadmin', 'manager', 'admin'] },
+  { to: '/absentees', icon: Bell, label: 'absentees', roles: ['superadmin', 'manager', 'admin', 'administrator'] },
 ];
 
 export default function Layout({ children }: { children: React.ReactNode }) {
