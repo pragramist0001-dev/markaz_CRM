@@ -39,7 +39,7 @@ const getTeacher = asyncHandler(async (req, res) => {
 // @desc    Create teacher
 // @route   POST /api/teachers
 const createTeacher = asyncHandler(async (req, res) => {
-  const { name, email, password, phone, subject } = req.body;
+  const { name, password, phone, subject, email } = req.body;
 
   if (!phone || !password) {
     return res.status(400).json({ success: false, message: 'Telefon raqam va parol kiritilishi shart' });
@@ -57,15 +57,13 @@ const createTeacher = asyncHandler(async (req, res) => {
     phone,
     password,
     role: 'teacher',
-    academy: req.user.academy,
-    email
+    academy: req.user.academy
   });
 
   // Create Teacher linked to User
   const teacher = await Teacher.create({
     name,
     phone,
-    email,
     subject,
     user: user._id,
     academy: req.user.academy

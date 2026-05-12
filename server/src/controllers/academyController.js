@@ -12,14 +12,14 @@ const getAcademies = asyncHandler(async (req, res) => {
 // @desc    Create academy
 // @route   POST /api/academies
 const createAcademy = asyncHandler(async (req, res) => {
-  const { name, slug, ownerEmail, ownerName, ownerPassword } = req.body;
+  const { name, slug, ownerPhone, ownerName, ownerPassword } = req.body;
 
   // 1. Create owner user if not exists
-  let owner = await User.findOne({ email: ownerEmail });
+  let owner = await User.findOne({ phone: ownerPhone });
   if (!owner) {
     owner = await User.create({
       name: ownerName,
-      email: ownerEmail,
+      phone: ownerPhone,
       password: ownerPassword,
       role: 'manager',
     });
