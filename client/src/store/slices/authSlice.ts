@@ -21,7 +21,7 @@ const initialState: AuthState = {
 
 export const loginUser = createAsyncThunk(
   'auth/login',
-  async (credentials: { email: string; password: string }, { rejectWithValue }) => {
+  async (credentials: { phone: string; password: string }, { rejectWithValue }) => {
     try {
       const { data } = await api.post('/auth/login', credentials);
       return data.data;

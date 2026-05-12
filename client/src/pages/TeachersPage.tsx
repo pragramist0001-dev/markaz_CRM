@@ -44,7 +44,7 @@ export default function TeachersPage() {
   const [search, setSearch] = useState('');
   const [showPassword, setShowPassword] = useState(false);
   const [form, setForm] = useState({
-    name: '', phone: '', email: '', subject: '', password: '', isActive: true,
+    name: '', phone: '', subject: '', password: '', isActive: true,
   });
 
   const fetchTeachers = async () => {
@@ -60,14 +60,14 @@ export default function TeachersPage() {
 
   const openAdd = () => {
     setEditing(null);
-    setForm({ name: '', phone: '', email: '', subject: '', password: '', isActive: true });
+    setForm({ name: '', phone: '', subject: '', password: '', isActive: true });
     setShowModal(true);
   };
 
   const openEdit = (t: Teacher) => {
     setEditing(t);
     setForm({
-      name: t.name, phone: t.phone, email: t.email || '',
+      name: t.name, phone: t.phone,
       subject: t.subject || '', password: '', isActive: t.isActive
     });
     setShowModal(true);
@@ -304,9 +304,9 @@ export default function TeachersPage() {
                 </div>
 
                 <div className="grid grid-cols-2 gap-4">
-                  {/* Phone */}
+                  {/* Phone (Login) */}
                   <div className="space-y-2">
-                    <label className="text-[11px] font-black text-slate-400 uppercase tracking-widest ml-1">{t('phone_number')} *</label>
+                    <label className="text-[11px] font-black text-slate-400 uppercase tracking-widest ml-1">{t('phone_number')} (Login) *</label>
                     <Input 
                       value={form.phone} 
                       onChange={e => setForm({...form, phone: e.target.value})} 
@@ -330,18 +330,7 @@ export default function TeachersPage() {
                 </div>
 
 
-                {/* Email (Login) */}
-                <div className="space-y-2">
-                  <label className="text-[11px] font-black text-slate-400 uppercase tracking-widest ml-1">{t('email')} (Login) *</label>
-                  <Input 
-                    type="email"
-                    value={form.email} 
-                    onChange={e => setForm({...form, email: e.target.value})} 
-                    placeholder="example@mail.com"
-                    required
-                    className="rounded-2xl h-12 bg-slate-50 dark:bg-slate-950 border-slate-200 dark:border-slate-800 focus:ring-4 focus:ring-indigo-500/10 font-bold transition-all" 
-                  />
-                </div>
+
 
                 {/* Password */}
                 {!editing && (

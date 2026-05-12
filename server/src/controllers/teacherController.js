@@ -41,24 +41,24 @@ const getTeacher = asyncHandler(async (req, res) => {
 const createTeacher = asyncHandler(async (req, res) => {
   const { name, email, password, phone, subject } = req.body;
 
-  if (!email || !password) {
-    return res.status(400).json({ success: false, message: 'Email va parol kiritilishi shart' });
+  if (!phone || !password) {
+    return res.status(400).json({ success: false, message: 'Telefon raqam va parol kiritilishi shart' });
   }
 
   // Check if user already exists
-  const userExists = await User.findOne({ email });
+  const userExists = await User.findOne({ phone });
   if (userExists) {
-    return res.status(400).json({ success: false, message: 'Ushbu email bilan foydalanuvchi allaqachon mavjud' });
+    return res.status(400).json({ success: false, message: 'Ushbu telefon raqam bilan foydalanuvchi allaqachon mavjud' });
   }
 
   // Create User
   const user = await User.create({
     name,
-    email,
+    phone,
     password,
     role: 'teacher',
     academy: req.user.academy,
-    phone
+    email
   });
 
   // Create Teacher linked to User

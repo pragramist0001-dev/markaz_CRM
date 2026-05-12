@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Eye, EyeOff, Lock, Mail, AlertCircle, Moon, Sun } from 'lucide-react';
+import { Eye, EyeOff, Lock, Phone, AlertCircle, Moon, Sun } from 'lucide-react';
 import { useAppDispatch, useAppSelector } from '../hooks/useRedux';
 import { loginUser, clearError } from '../store/slices/authSlice';
 import { useTranslation } from 'react-i18next';
@@ -13,7 +13,7 @@ import FloatingBackground from '../components/FloatingBackground';
 
 export default function LoginPage() {
   const { t, i18n } = useTranslation();
-  const [form, setForm] = useState({ email: '', password: '' });
+  const [form, setForm] = useState({ phone: '', password: '' });
   const [showPass, setShowPass] = useState(false);
   const [theme, setTheme] = useState(localStorage.getItem('theme') || 'dark');
   const dispatch = useAppDispatch();
@@ -104,15 +104,15 @@ export default function LoginPage() {
 
             <form onSubmit={handleSubmit} className="space-y-6">
               <div className="space-y-2">
-                <label className="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-[0.2em] ml-1">{t('email')}</label>
+                <label className="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-[0.2em] ml-1">{t('phone') || 'Telefon raqam'}</label>
                 <div className="relative group">
-                  <Mail className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-indigo-500 transition-colors" size={18} />
+                  <Phone className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-indigo-500 transition-colors" size={18} />
                   <Input 
-                    type="email" 
-                    placeholder={t('email_placeholder')}
+                    type="tel" 
+                    placeholder="+998"
                     className="h-14 pl-12 bg-slate-50/50 dark:bg-slate-950/50 border-slate-200 dark:border-slate-800 rounded-2xl font-bold focus:ring-4 focus:ring-indigo-500/10 transition-all"
-                    value={form.email}
-                    onChange={e => setForm({...form, email: e.target.value})}
+                    value={form.phone}
+                    onChange={e => setForm({...form, phone: e.target.value})}
                     required
                   />
                 </div>

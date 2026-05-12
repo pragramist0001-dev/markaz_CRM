@@ -10,19 +10,19 @@ const generateToken = (id) => {
 // @route   POST /api/auth/register
 // @access  Private/Admin
 const register = asyncHandler(async (req, res) => {
-  const { name, email, password, role, phone } = req.body;
+  const { name, phone, password, role, email } = req.body;
 
-  const userExists = await User.findOne({ email });
+  const userExists = await User.findOne({ phone });
   if (userExists) {
-    return res.status(400).json({ success: false, message: 'Bu email allaqachon ro\'yxatdan o\'tgan' });
+    return res.status(400).json({ success: false, message: 'Bu telefon raqam allaqachon ro\'yxatdan o\'tgan' });
   }
 
   const user = await User.create({ 
     name, 
-    email, 
+    phone, 
     password, 
     role: role || 'teacher', 
-    phone,
+    email,
     academy: req.user.role === 'superadmin' ? req.body.academy : req.user.academy
   });
   res.status(201).json({
@@ -35,15 +35,15 @@ const register = asyncHandler(async (req, res) => {
 // @route   POST /api/auth/login
 // @access  Public
 const login = asyncHandler(async (req, res) => {
-  const { email, password } = req.body;
+  const { phone, password } = req.body;
 
-  if (!email || !password) {
-    return res.status(400).json({ success: false, message: 'Email va parol talab qilinadi' });
+  if (!phone || !password) {
+    return res.status(400).json({ success: false, message: 'Telefon raqam va parol talab qilinadi' });
   }
 
-  const user = await User.findOne({ email }).select('+password');
+  const user = await User.findOne({ phone }).select('+password');
   if (!user || !(await user.matchPassword(password))) {
-    return res.status(401).json({ success: false, message: 'Email yoki parol noto\'g\'ri' });
+    return res.status(401).json({ success: false, message: 'Telefon raqam yoki parol noto\'g\'ri' });
   }
 
   if (!user.isActive) {
@@ -69,11 +69,11 @@ const getMe = asyncHandler(async (req, res) => {
 const updateMe = asyncHandler(async (req, res) => {
   const { name, phone, email } = req.body;
 
-  // Check if new email is already taken by another user
-  if (email) {
-    const existingUser = await User.findOne({ email, _id: { $ne: req.user._id } });
+  // Check if new phone is already taken by another user
+  if (phone) {
+    const existingUser = await User.findOne({ phone, _id: { $ne: req.user._id } });
     if (existingUser) {
-      return res.status(400).json({ success: false, message: 'Bu email allaqachon boshqa foydalanuvchi tomonidan ishlatilmoqda' });
+      return res.status(400).json({ success: false, message: 'Bu telefon raqam allaqachon boshqa foydalanuvchi tomonidan ishlatilmoqda' });
     }
   }
 
@@ -123,7 +123,7 @@ const seedAdmin = asyncHandler(async (req, res) => {
 
   const admin = await User.create({
     name: 'Main Super Admin',
-    email: 'super@crm.uz',
+    phone: '998901234567', // Default super admin phone
     password: 'superpassword',
     role: 'superadmin',
   });
@@ -131,7 +131,7 @@ const seedAdmin = asyncHandler(async (req, res) => {
   res.status(201).json({
     success: true,
     message: 'Super Admin yaratildi',
-    data: { email: 'super@crm.uz', password: 'superpassword', token: generateToken(admin._id) },
+    data: { phone: '998901234567', password: 'superpassword', token: generateToken(admin._id) },
   });
 });
 
